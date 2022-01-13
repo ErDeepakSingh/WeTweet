@@ -1,0 +1,38 @@
+{% extends 'header.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+  <div class="media">
+      <img class="rounded-circle account-img" src="{{ profile_data.image.url }}" alt="profile picture">
+    <div class="media-body">
+      <h2 class="account-heading">{{user_data.username}}</h2>
+      <p class="text-secondary"></p>
+        {% if not follow_check %}
+        <form method="post" action="/users/follow_user/">{% csrf_token %}
+            <div class="form-group">
+                <button name='follow' value={{user_data.id}} class="btn btn-outline-info" type="submit">Follow</button>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+  </div>
+ <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset  class="form-group">
+        <legend class="border-bottom mb-4">Profile Info</legend>
+<!--        {{u_form|crispy}}-->
+<!--        {{p_form|crispy}}-->
+            {{profile_data.followers}}
+    </fieldset>
+    <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Update</button>
+    </div>
+</form>
+</div>
+
+
+
+
+
+{% endblock content %}
+
